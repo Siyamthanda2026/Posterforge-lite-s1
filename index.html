@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PosterForge AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      padding: 40px;
+      background: #f4f4f4;
+    }
+    input {
+      width: 80%;
+      padding: 12px;
+      margin: 10px 0;
+    }
+    button {
+      padding: 12px 20px;
+      background: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    img {
+      margin-top: 20px;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h1>PosterForge AI</h1>
+  <p>Type your poster idea below:</p>
+  <input id="prompt" placeholder="Beauty poster for lash business...">
+  <br>
+  <button onclick="generateImage()">Generate Poster</button>
+  <div>
+    <img id="result"/>
+  </div>
+
+<script>
+async function generateImage() {
+  const prompt = document.getElementById("prompt").value;
+
+  const response = await fetch("/api/generate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ prompt })
+  });
+
+  const data = await response.json();
+  document.getElementById("result").src = data.image;
+}
+</script>
+
+</body>
+</html>
